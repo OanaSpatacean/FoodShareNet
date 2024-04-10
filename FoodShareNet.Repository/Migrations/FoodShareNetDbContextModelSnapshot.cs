@@ -82,6 +82,16 @@ namespace FoodShareNet.Repository.Migrations
                         {
                             Id = 3,
                             Name = "Timisoara"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Iasi"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Constanta"
                         });
                 });
 
@@ -305,6 +315,10 @@ namespace FoodShareNet.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -317,16 +331,19 @@ namespace FoodShareNet.Repository.Migrations
                         new
                         {
                             Id = 1,
+                            Image = "Tomatoes",
                             Name = "Tomatoes"
                         },
                         new
                         {
                             Id = 2,
+                            Image = "Potatoes",
                             Name = "Potatoes"
                         },
                         new
                         {
                             Id = 3,
+                            Image = "Meat",
                             Name = "Meat"
                         });
                 });

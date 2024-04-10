@@ -15,14 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\Courier\" />
-    <Folder Include="DTO\Donation\" />
-    <Folder Include="DTO\Donor\" />
-    <Folder Include="DTO\Product\" />
-    <Folder Include="DTO\Order\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FoodShareNet.Domain\FoodShareNet.Domain.csproj" />
     <ProjectReference Include="..\FoodShareNet.Repository\FoodShareNet.Repository.csproj" />
   </ItemGroup>

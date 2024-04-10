@@ -72,7 +72,8 @@ namespace FoodShareNet.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -206,7 +207,9 @@ namespace FoodShareNet.Repository.Migrations
                 {
                     { 1, "Bucuresti" },
                     { 2, "Cluj-Napoca" },
-                    { 3, "Timisoara" }
+                    { 3, "Timisoara" },
+                    { 4, "Iasi" },
+                    { 5, "Constanta" }
                 });
 
             migrationBuilder.InsertData(
@@ -242,12 +245,12 @@ namespace FoodShareNet.Repository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "Image", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Tomatoes" },
-                    { 2, "Potatoes" },
-                    { 3, "Meat" }
+                    { 1, "Tomatoes", "Tomatoes" },
+                    { 2, "Potatoes", "Potatoes" },
+                    { 3, "Meat", "Meat" }
                 });
 
             migrationBuilder.CreateIndex(

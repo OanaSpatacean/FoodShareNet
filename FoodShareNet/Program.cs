@@ -2,13 +2,12 @@ using FoodShareNet.Repository.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<FoodShareNetDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection" +
-    "")));
 
 // Add services to the container.
+//we need to add definition for DbContext
 builder.Services.AddDbContext<FoodShareNetDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.
-                GetConnectionString("DefaultConnection")));
+                GetConnectionString("DefaultConnection"))); //This has to user the ConnectionString we defined in appSetting.json file
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
