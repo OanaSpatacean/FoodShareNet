@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace FoodShareNet.Domain.Enums
 {
-    public enum OrderStatus : int
+    public enum DonationStatusEnum
     {
-        Unconfirmed = 1,
-        Confirmed = 2,
-        InDelivery = 3,
-        Delivered = 4
+        Available = 1,
+        Reserved = 2
     }
 }

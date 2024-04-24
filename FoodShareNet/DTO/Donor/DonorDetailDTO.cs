@@ -1,4 +1,5 @@
 ﻿using FoodShareNet.Domain.Entities;
+using FoodShareNetAPI.DTO.Donation;
 
 namespace FoodShareNetAPI.DTO.Donor
 {
@@ -8,8 +9,7 @@ namespace FoodShareNetAPI.DTO.Donor
         public string Name { get; set; }
         public int CityId { get; set; }
         public string Address { get; set; }
-
-        //public List<Donation> Donations { get; set; } = new List<Donation>();
+        //public List<DonationDTO> Donations { get; set; } = new List<DonationDTO>();
         public List<int> DonationsId { get; set; } = new List<int>();
     }
 }

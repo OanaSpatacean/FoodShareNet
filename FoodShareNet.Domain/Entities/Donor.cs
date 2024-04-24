@@ -14,5 +14,6 @@ namespace FoodShareNet.Domain.Entities
         public City City { get; set; }
         public string Address { get; set; }
         public List<Donation> Donations { get; set; } = new List<Donation>();
+        //public List<int> DonationsId { get; set; } = new List<int>();
     }
 }

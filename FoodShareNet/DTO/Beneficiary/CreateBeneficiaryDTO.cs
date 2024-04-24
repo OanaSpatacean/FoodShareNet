@@ -1,7 +1,10 @@
-﻿namespace FoodShareNetAPI.DTO.Beneficiary
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FoodShareNetAPI.DTO.Beneficiary
 {
     public class CreateBeneficiaryDTO
     {
+        [Required]
         public string Name { get; set; }
         public int CityId { get; set; }
         public string Address { get; set; }
