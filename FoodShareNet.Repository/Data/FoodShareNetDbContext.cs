@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using FoodShareNet.Domain.Entities;
 using System.Diagnostics.Metrics;
+using FoodShareNet.Application.Interfaces;
 
 namespace FoodShareNet.Repository.Data
 {
-    public class FoodShareNetDbContext : DbContext //FoodShareNetDbContext class is inheriting from DbContext
+    public class FoodShareNetDbContext : DbContext, IFoodShareDbContext //FoodShareNetDbContext class is inheriting from DbContext
     {
         public FoodShareNetDbContext(DbContextOptions<FoodShareNetDbContext> options) 
             :base(options) { }

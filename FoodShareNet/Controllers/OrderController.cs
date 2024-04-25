@@ -3,6 +3,8 @@ using FoodShareNetAPI.DTO.Order;
 using FoodShareNet.Domain.Entities;
 using FoodShareNet.Repository.Data;
 using Microsoft.EntityFrameworkCore;
+using FoodShareNet.Application.Interfaces;
+using FoodShareNet.Domain.Enums;
 
 namespace FoodShareNetAPI.Controllers
 {
@@ -10,6 +12,100 @@ namespace FoodShareNetAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class OrderController : ControllerBase //inherit from ControllerBase class
     {
+        private readonly IOrderService _orderService;
+        public OrderController(IOrderService orderService)
+        {
+            _orderService = orderService;
+        }
+
+        //We are defining the endpoint for retrieving a specific the Order data
+        [ProducesResponseType(typeof(OrderDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("{id}")]
+
+        public async Task<ActionResult<OrderDTO>> GetOrder(int id)
+        {
+            //return Ok(); //returns an ActionResult of OrderDTO
+
+            var order = await _orderService.GetOrderAsync(id);
+
+            var orderEntityDTO = new OrderDTO()
+            {
+                Id = order.Id,
+                BeneficiaryId = order.BeneficiaryId,
+                BeneficiaryName = order.Beneficiary?.Name,
+                DonationId = order.Donation.Id,
+                DonationProductName = order.Donation?.Product?.Name,
+                CourierId = order.CourierId,
+                CourierName = order.Courier?.Name,
+                CreationDate = order.CreationDate,
+                DeliveryDate = order.DeliveryDate,
+                OrderStatusId = order.OrderStatusId,
+                OrderStatusName = order.OrderStatus.Name,
+                Quantity = order.Quantity,
+            };
+
+            return Ok(orderEntityDTO);
+        }
+
+        //We are defining the endpoint for creating a new Order
+        [ProducesResponseType(typeof(OrderDetailDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost]
+
+        public async Task<ActionResult<OrderDetailDTO>> CreateOrder([FromBody] CreateOrderDTO createOrderDTO) // It takes and input a CreateOrderDTO
+        {
+            var order = new Order()
+            {
+                Quantity = createOrderDTO.Quantity,
+                BeneficiaryId = createOrderDTO.BeneficiaryId,
+                DonationId = createOrderDTO.DonationId,
+                CourierId = createOrderDTO.CourierId,
+                CreationDate = createOrderDTO.CreationDate,
+                OrderStatusId = createOrderDTO.OrderStatusId,
+            };
+
+            var createOrder = await _orderService.CreateOrderAsync(order);
+
+            var orderEntityDTO = new OrderDetailDTO()
+            {
+                Id = order.Id,
+                BeneficiaryId = order.BeneficiaryId,
+                DonationId = order.DonationId,
+                CourierId = order.CourierId,
+                CreationDate = order.CreationDate,
+                DeliveryDate = order.DeliveryDate,
+                OrderStatusId = order.OrderStatusId,
+                Quantity = createOrderDTO.Quantity
+            };
+
+            return Ok(orderEntityDTO);
+        }
+
+        [HttpPatch("{id:int}/status")]
+        public async Task<ActionResult> EditOrderStatus(int id, [FromBody] EditOrderStatusDTO editOrderStatusDTO) //It takes and input an id to identify the entity we need to update and EditOrderDTO that holds OrderData
+        {
+            //return Ok(); //returns an ActionResult
+
+            if (id != editOrderStatusDTO.Id)
+            {
+                return BadRequest("Mismatched Order ID");
+            }
+
+            var order = await _orderService.UpdateOrderStatusAsync(id, (OrderStatusEnum)editOrderStatusDTO.OrderStatusId);
+
+            if (order == null)
+            {
+                return NotFound($"Order with ID {id} not found.");
+            }
+
+            return NoContent();
+        }
+
+
+        /*
         private readonly FoodShareNetDbContext _context;
         public OrderController(FoodShareNetDbContext context)
         {
@@ -220,5 +316,6 @@ namespace FoodShareNetAPI.Controllers
 
             return NoContent();
         }
+        */
     }
 }
